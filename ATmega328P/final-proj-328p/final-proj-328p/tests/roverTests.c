@@ -1,23 +1,6 @@
-#include "rover.h"
-#include "avr/interrupt.h"
-#include "avr/delay.h"
+#include "roverTests.h"
+#include "../utils/rover.h"
 
-void testRover();
-
-void Initialize() {
-    cli();
-    ROVER_initialize();
-    sei();
-}
-
-int main(void) {
-    Initialize();
-
-    _delay_ms(1000);
-    testRover();
-
-    while(1);
-}
 
 void testRover() {
 
