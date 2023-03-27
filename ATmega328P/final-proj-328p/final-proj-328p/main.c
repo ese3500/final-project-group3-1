@@ -20,7 +20,8 @@ int main(void) {
 
     _delay_ms(1000);
     //testRover();
-    echoSerial();
+    //echoSerial();
+	twoWaySerialTest();
 
     while(1);
 }
