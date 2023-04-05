@@ -48,6 +48,6 @@ while True:
     # PERSON
     matched = person_matcher.match(command)
     if (matched):
-        print(f"Got: NOPERSON {matched.group(1)}")
+        print(f"Got: PERSON {matched.group(1)}")
         comm.person(matched.group(1))
         continue    

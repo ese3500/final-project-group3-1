@@ -6,13 +6,14 @@ VALID_MOVE = ['F', 'B', 'R', 'L', 'U', 'S']
 
 class Commander:
     def __init__(self, baud=9600, port='/dev/ttyACM0'):
-        ser = serial.Serial(port=port, baudrate=baud, timeout=0.1, stopbits=serial.STOPBITS_TWO)
-        ser.flush()
+        self.ser = serial.Serial(port=port, baudrate=baud, timeout=0.1, stopbits=serial.STOPBITS_TWO)
+        self.ser.flush()
 
     def setSpeed(self, leftSpeed, rightSpeed, dur):
         try:
             leftSpeed = inRange(int(leftSpeed), MIN_SPEED, MAX_SPEED)
             rightSpeed = inRange(int(rightSpeed), MIN_SPEED, MAX_SPEED)
+            dur = inRange(int(dur), 0, int(1e7))            
             if (dur < 0):
                 raise Exception()
             dur = int(dur)
@@ -20,7 +21,7 @@ class Commander:
             print("Invalid inputs to setSpeed")
             return -1
     
-        self.ser.write(f"SPEED {leftSpeed} {rightSpeed} {dur}\n".encode('ascii'))
+        self.ser.write(f"SPEED {leftSpeed:03} {rightSpeed:03} {dur:07}\n".encode('ascii'))
         return 0
     
     def move(self, dir):
@@ -55,7 +56,7 @@ class Commander:
             print("Invalid angle to person")
 
         
-        self.ser.write(f"PERSON {int(angle)}\n".encode('ascii'))
+        self.ser.write(f"PERSON {int(angle):03}\n".encode('ascii'))
         return 0
     
     def waitUntilDone(self):

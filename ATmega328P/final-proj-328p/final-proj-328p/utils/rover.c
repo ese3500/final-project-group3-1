@@ -72,5 +72,5 @@ void ROVER_stop() {
 }
 
 void ROVER_setMode(int mode) {
-    MODE = mode;
+    //MODE = mode;
 }

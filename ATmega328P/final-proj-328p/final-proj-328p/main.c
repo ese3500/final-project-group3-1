@@ -15,7 +15,7 @@ void Initialize() {
     sei();
 }
 
-int main(void) {
+int mainn(void) {
     Initialize();
 
     _delay_ms(1000);

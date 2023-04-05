@@ -40,9 +40,11 @@ SUBDIRS :=  \
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../main.c \
+../sshController.c \
 ../tests/roverTests.c \
 ../tests/serialTests.c \
 ../utils/motor.c \
+../utils/others.c \
 ../utils/rover.c \
 ../utils/serial.c
 
@@ -55,33 +57,41 @@ ASM_SRCS +=
 
 OBJS +=  \
 main.o \
+sshController.o \
 tests/roverTests.o \
 tests/serialTests.o \
 utils/motor.o \
+utils/others.o \
 utils/rover.o \
 utils/serial.o
 
 OBJS_AS_ARGS +=  \
 main.o \
+sshController.o \
 tests/roverTests.o \
 tests/serialTests.o \
 utils/motor.o \
+utils/others.o \
 utils/rover.o \
 utils/serial.o
 
 C_DEPS +=  \
 main.d \
+sshController.d \
 tests/roverTests.d \
 tests/serialTests.d \
 utils/motor.d \
+utils/others.d \
 utils/rover.d \
 utils/serial.d
 
 C_DEPS_AS_ARGS +=  \
 main.d \
+sshController.d \
 tests/roverTests.d \
 tests/serialTests.d \
 utils/motor.d \
+utils/others.d \
 utils/rover.d \
 utils/serial.d
 
@@ -106,6 +116,13 @@ LINKER_SCRIPT_DEP+=
 	@echo Finished building: $<
 	
 
+./sshController.o: .././sshController.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328p -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega328p" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
 tests/roverTests.o: ../tests/roverTests.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
@@ -121,6 +138,13 @@ tests/serialTests.o: ../tests/serialTests.c
 	
 
 utils/motor.o: ../utils/motor.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328p -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega328p" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+utils/others.o: ../utils/others.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\include"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega328p -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\gcc\dev\atmega328p" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

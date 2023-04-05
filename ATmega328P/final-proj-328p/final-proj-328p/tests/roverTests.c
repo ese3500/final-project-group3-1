@@ -1,3 +1,11 @@
+#ifndef F_CPU
+#define F_CPU 16000000UL
+#define BAUD_RATE 9600
+#define BAUD_PRESCALER (((F_CPU / (BAUD_RATE * 16UL))) - 1)
+#endif
+
+#include <util/delay.h>
+
 #include "roverTests.h"
 #include "../utils/rover.h"
 
