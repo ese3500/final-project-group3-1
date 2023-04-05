@@ -4,126 +4,125 @@
 
 #include "motor.h"
 
-/*We will be using timer1 to control both motors via a PWM signal on pins PB1(OC1A) and PB2(0C1B)*/
-void TIMER1_SETUP() {
-    //set up timer1 with no pre-scaling
-    TCCR1B |= (1<<CS10);
+/*We will be using timer2 to control LEFT and RIGHT motor via PWM signals on pins PD3(OC2B) and PB3(0C2A) respectively*/
+void TIMER_SETUP() {
+    //set up timer2 with no pre-scaling
+    TCCR2B |= (1<<CS20);
 
-    //setting timer1 to phase correct PWM
-    TCCR1A |= (1<<WGM10);
+    //setting timer2 to phase correct PWM
+    TCCR2A |= (1<<WGM20);
 
-    //setting OC1A and OC1B to non-inverting mode (clear on compare match)
-    TCCR1A |= (1<<COM1A1);
-    TCCR1A |= (1<<COM1B1);
+    //setting OC2A and OC2B to non-inverting mode (clear on compare match)
+    TCCR2A |= (1<<COM2A1);
+    TCCR2A |= (1<<COM2B1);
+
 }
+void LEFT_init() {
+    //setting OCR2B to output on pin PD3(D3)
+    DDRD |= (1<<DDD3);
 
-void MOTOR1_init() {
+    //setting direction pin to output on pin PB4(D12)
+    DDRB |= (1<<DDB4);
 
-    //MOTOR1 enable pin attached to pin PB1(OC1A)
-    //MOTOR1 direction pin is attached to pin PBO
-    //MOTOR1 brake pin is attached to pin PD7
-
-    //setting PB1, PB0,and PD7 as output pins
+    //setting brake pin to output on pin PB1(D9)
     DDRB |= (1<<DDB1);
+}
+
+void RIGHT_init() {
+    //setting  OCR2A to output on pin PB3(D11)
+    DDRB |= (1<<DDB3);
+
+    //setting direction pin to output on pin PB5(D13)
+    DDRB |= (1<<DDB5);
+
+    //setting brake pin to output on pin PB0(D8)
     DDRB |= (1<<DDB0);
-    DDRD |= (1<<DDD7);
-
-    MOTOR1_setSpeed(0);
 }
 
-void MOTOR2_init() {
-    //MOTOR2 enable pin attached to pin PB2(OC1B)
-    //MOTOR2 direction pin is attached to pin PD6
-    //MOTOR2 brake pin is attached to pin PD5
+void LEFT_forward(int speed) {
+    BRAKE &= ~(1<<LEFT_BRAKE);
 
-    //setting PB2, PD6,and PD5 as output pins
-    DDRB |= (1<<DDB2);
-    DDRD |= (1<<DDD6);
-    DDRD |= (1<<DDD5);
+    LEFT_setSpeed(speed);
+    DIR &= ~(1<<LEFT_DIR);
+}
+void RIGHT_forward(int speed) {
+    BRAKE &= ~(1<<RIGHT_BRAKE);
 
-    MOTOR2_setSpeed(0);
+    RIGHT_setSpeed(speed);
+    DIR |= (1<<RIGHT_DIR);
 }
 
-void MOTOR1_forward() {
-    //set direction pin to high and brake pin to low
-    PORTB |= (1<<PORTB0);
-    PORTD &= ~(1<<PORTD7);
+void LEFT_backward(int speed) {
+    BRAKE &= ~(1<<LEFT_BRAKE);
+
+    LEFT_setSpeed(speed);
+    DIR |= (1<<LEFT_DIR);
 }
 
-void MOTOR2_forward() {
-    //set direction pin to high and brake pin to low
-    PORTD |= (1<<PORTD6);
-    PORTD &= ~(1<<PORTD5);
+void RIGHT_backward(int speed) {
+    BRAKE &= ~(1<<RIGHT_BRAKE);
+
+    RIGHT_setSpeed(speed);
+    DIR &= ~(1<<RIGHT_DIR);
 }
 
-void MOTOR1_backward() {
-    //set direction pin to low and brake pin to low
-    PORTB &= ~(1<<PORTB0);
-    PORTD &= ~(1<<PORTD7);
+void LEFT_setSpeed(int speed) {
+    if (speed <= 0) {
+        LEFT_SPEED = 0;
+    }
+    if (speed > 0 && speed < 255) {
+        LEFT_SPEED = speed;
+    }
+    if (speed >= 255) {
+        LEFT_SPEED = speed;
+    }
+}
+void RIGHT_setSpeed(int speed) {
+    if (speed <= 0) {
+        RIGHT_SPEED = 0;
+    }
+    if (speed > 0 && speed < 255) {
+        RIGHT_SPEED = speed;
+    }
+    if (speed >= 255) {
+        RIGHT_SPEED = speed;
+    }
 }
 
-void MOTOR2_backward() {
-    //set direction pin to low and brake pin to low
-    PORTD &= ~(1<<PORTD6);
-    PORTD &= ~(1<<PORTD5);
-}
-
-//speed value should be between 0 and 255
-void MOTOR1_setSpeed(int speed) {
-    if (speed > 255) {
-        MOTOR1_SPEED = 255;
+void LEFT_increaseSpeed(int acc) {
+    if (LEFT_SPEED + acc >= 255) {
+        LEFT_SPEED = 255;
     } else {
-        if (speed < 0) {
-            MOTOR1_SPEED = 0;
-        } else {
-            MOTOR1_SPEED = speed;
-        }
+        LEFT_SPEED += acc;
     }
 }
-
-//speed value should be between 0 and 255
-void MOTOR2_setSpeed(int speed) {
-    if (speed > 255) {
-        MOTOR2_SPEED = 255;
+void RIGHT_increaseSpeed(int acc) {
+    if (RIGHT_SPEED + acc >= 255) {
+        RIGHT_SPEED = 255;
     } else {
-        if (speed < 0) {
-            MOTOR2_SPEED = 0;
-        } else {
-            MOTOR2_SPEED = speed;
-        }
+        RIGHT_SPEED += acc;
     }
 }
 
-void MOTOR1_increaseSpeed(int acc) {
-    if (acc < 255 && MOTOR1_SPEED <= 255-acc) {
-        MOTOR1_SPEED += acc;
+void LEFT_decreaseSpeed(int dec) {
+    if (LEFT_SPEED - dec <= 0) {
+        LEFT_SPEED = 0;
+    } else {
+        LEFT_SPEED -= dec;
+    }
+}
+void RIGHT_decreaseSpeed(int dec) {
+    if (RIGHT_SPEED - dec <= 0) {
+        RIGHT_SPEED = 0;
+    } else {
+        RIGHT_SPEED -= dec;
     }
 }
 
-void MOTOR2_increaseSpeed(int acc) {
-    if (acc < 255 && MOTOR2_SPEED <= 255-acc) {
-        MOTOR2_SPEED += acc;
-    }
+void LEFT_stop() {
+    BRAKE |= (1<<LEFT_BRAKE);
 }
 
-void MOTOR1_decreaseSpeed(int dec) {
-    if (MOTOR1_SPEED >= dec) {
-        MOTOR1_SPEED -= dec;
-    }
-}
-
-void MOTOR2_decreaseSpeed(int dec) {
-    if (MOTOR2_SPEED >= dec) {
-        MOTOR2_SPEED -= dec;
-    }
-}
-
-void MOTOR1_stop() {
-    //set the brake pin to high
-    PORTD |= (1<<PORTD7);
-}
-
-void MOTOR2_stop() {
-    //set the brake pin to high
-    PORTD |= (1<<PORTD5);
+void RIGHT_stop() {
+    BRAKE |= (1<<RIGHT_BRAKE);
 }
