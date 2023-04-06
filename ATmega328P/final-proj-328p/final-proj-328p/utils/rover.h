@@ -11,9 +11,9 @@ typedef struct Mode{
     int mode;
 } Mode;
 
-//static Mode m;
+static Mode m;
 
-//#define MODE m.mode
+#define MODE m.mode
 
 #define FORWARD_MODE 1
 #define BACKWARD_MODE 2

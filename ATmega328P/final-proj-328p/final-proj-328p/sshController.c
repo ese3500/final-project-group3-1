@@ -15,12 +15,14 @@
 #include "utils/serial.h"
 #include "utils/others.h"
 
-#define DEFAULT_SPEED 60
+#define DEFAULT_SPEED 180
 
 char buf[100];
 
 int get_arg(char *cmd, int start_index, int size) {
-    cmd[start_index + size] = '\0';
+    char buf2[40];
+    strcpy(buf2, cmd);
+    buf2[start_index + size] = '\0';
     return atoi(cmd + start_index);
 }
 

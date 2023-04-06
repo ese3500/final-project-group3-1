@@ -7,31 +7,39 @@
 
 #include "avr/io.h"
 
-#define MOTOR1_SPEED OCR1A
-#define MOTOR2_SPEED OCR1B
+#define DIR PORTB
+#define BRAKE PORTB
 
-void TIMER1_SETUP();
+#define LEFT_SPEED OCR2B
+#define LEFT_DIR PORTB4
+#define LEFT_BRAKE PORTB1
 
-void MOTOR1_init();
+#define RIGHT_SPEED OCR2A
+#define RIGHT_DIR PORTB5
+#define RIGHT_BRAKE PORTB0
 
-void MOTOR2_init();
 
-void MOTOR1_forward();
-void MOTOR2_forward();
+void TIMER_SETUP();
 
-void MOTOR1_backward();
-void MOTOR2_backward();
+void LEFT_init();
+void RIGHT_init();
 
-void MOTOR1_setSpeed(int speed);
-void MOTOR2_setSpeed(int speed);
+void LEFT_forward(int speed);
+void RIGHT_forward(int speed);
 
-void MOTOR1_increaseSpeed(int acc);
-void MOTOR2_increaseSpeed(int acc);
+void LEFT_backward(int speed);
+void RIGHT_backward(int speed);
 
-void MOTOR1_decreaseSpeed(int dec);
-void MOTOR2_decreaseSpeed(int dec);
+void LEFT_setSpeed(int speed);
+void RIGHT_setSpeed(int speed);
 
-void MOTOR1_stop();
-void MOTOR2_stop();
+void LEFT_increaseSpeed(int acc);
+void RIGHT_increaseSpeed(int acc);
+
+void LEFT_decreaseSpeed(int dec);
+void RIGHT_decreaseSpeed(int dec);
+
+void LEFT_stop();
+void RIGHT_stop();
 
 #endif //FINAL_MOTOR_H

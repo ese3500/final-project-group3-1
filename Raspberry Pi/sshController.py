@@ -15,6 +15,11 @@ person_matcher = re.compile("PERSON (\d+)")
 while True:
     command = input("Enter command:")
 
+    if command.lower() == 's':
+        print(f"Got: STOP")
+        comm.move('S')
+        continue
+
     # SPEED
     matched = speed_matcher.match(command)
     if (matched):

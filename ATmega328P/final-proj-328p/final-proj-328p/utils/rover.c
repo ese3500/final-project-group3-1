@@ -5,9 +5,9 @@
 #include "rover.h"
 
 void ROVER_initialize() {
-    TIMER1_SETUP();
-    MOTOR1_init();
-    MOTOR2_init();
+    TIMER_SETUP();
+    LEFT_init();
+    RIGHT_init();
     ROVER_stop();
 }
 
@@ -16,61 +16,56 @@ void ROVER_start(int speed) {
 }
 
 void ROVER_moveForward(int speed){
-    ROVER_setSpeed(speed, speed);
-    MOTOR1_forward();
-    MOTOR2_forward();
+    LEFT_forward(speed);
+    RIGHT_forward(speed);
     ROVER_setMode(FORWARD_MODE);
 }
 
 void ROVER_moveBackward(int speed) {
-    ROVER_setSpeed(speed, speed);
-    MOTOR1_backward();
-    MOTOR2_backward();
+    LEFT_backward(speed);
+    RIGHT_backward(speed);
     ROVER_setMode(BACKWARD_MODE);
 }
 
 void ROVER_turnLeft(int speed) {
-    ROVER_setSpeed(speed, speed);
-    MOTOR2_stop();
-    MOTOR1_forward();
+    LEFT_stop();
+    RIGHT_forward(speed);
     ROVER_setMode(LEFT_MODE);
 }
 
 void ROVER_turnRight(int speed) {
-    ROVER_setSpeed(speed, speed);
-    MOTOR1_stop();
-    MOTOR2_forward();
+    RIGHT_stop();
+    LEFT_forward(speed);
     ROVER_setMode(RIGHT_MODE);
 }
 
 void ROVER_turnAround(int speed) {
-    ROVER_setSpeed(speed, speed);
-    MOTOR1_forward();
-    MOTOR2_backward();
+    LEFT_forward(speed);
+    RIGHT_backward(speed);
     ROVER_setMode(AROUND_MODE);
 }
 
 void ROVER_setSpeed(int speed1, int speed2) {
-    MOTOR1_setSpeed(speed1);
-    MOTOR2_setSpeed(speed2);
+    LEFT_setSpeed(speed1);
+    RIGHT_setSpeed(speed2);
 }
 
 void ROVER_increaseSpeed(int acc) {
-    MOTOR1_increaseSpeed(acc);
-    MOTOR2_increaseSpeed(acc);
+    LEFT_increaseSpeed(acc);
+    RIGHT_increaseSpeed(acc);
 }
 
 void ROVER_decreaseSpeed(int dec) {
-    MOTOR1_decreaseSpeed(dec);
-    MOTOR2_decreaseSpeed(dec);
+    LEFT_decreaseSpeed(dec);
+    RIGHT_decreaseSpeed(dec);
 }
 
 void ROVER_stop() {
-    MOTOR1_stop();
-    MOTOR2_stop();
+    LEFT_stop();
+    RIGHT_stop();
     ROVER_setMode(STOP_MODE);
 }
 
 void ROVER_setMode(int mode) {
-    //MODE = mode;
+    MODE = mode;
 }
