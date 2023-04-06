@@ -10,18 +10,11 @@ class Commander:
         self.ser.flush()
 
     def setSpeed(self, leftSpeed, rightSpeed, dur):
-        try:
-            leftSpeed = inRange(int(leftSpeed), MIN_SPEED, MAX_SPEED)
-            rightSpeed = inRange(int(rightSpeed), MIN_SPEED, MAX_SPEED)
-            dur = inRange(int(dur), 0, int(1e7))            
-            if (dur < 0):
-                raise Exception()
-            dur = int(dur)
-        except:
-            print("Invalid inputs to setSpeed")
-            return -1
+        leftSpeed = inRange(int(leftSpeed), MIN_SPEED, MAX_SPEED)
+        rightSpeed = inRange(int(rightSpeed), MIN_SPEED, MAX_SPEED)
+        dur = int(dur)
     
-        self.ser.write(f"SPEED {leftSpeed:03} {rightSpeed:03} {dur:07}\n".encode('ascii'))
+        self.ser.write(f"SPEED {leftSpeed} {rightSpeed} {dur}\n".encode('ascii'))
         return 0
     
     def move(self, dir):
@@ -40,6 +33,7 @@ class Commander:
             dist = int(line)
         except: 
             print("Failed to cast dist to int")
+            print(f"Got line: {line}")
             return -1
         return dist
     
@@ -56,7 +50,7 @@ class Commander:
             print("Invalid angle to person")
 
         
-        self.ser.write(f"PERSON {int(angle):03}\n".encode('ascii'))
+        self.ser.write(f"PERSON {int(angle)}\n".encode('ascii'))
         return 0
     
     def waitUntilDone(self):

@@ -20,6 +20,33 @@ while True:
         comm.move('S')
         continue
 
+    if command.lower() == 'f':
+        print(f"Got: F")
+        comm.move('F')
+        continue
+
+    if command.lower() == 'b':
+        print(f"Got: B")
+        comm.move('B')
+        continue
+
+    if command.lower() == 'r':
+        print(f"Got: R")
+        comm.move('R')
+        continue
+
+
+    if command.lower() == 'l':
+        print(f"Got: L")
+        comm.move('L')
+        continue
+
+
+    if command.lower() == 'u':
+        print(f"Got: U")
+        comm.move('U')
+        continue
+
     # SPEED
     matched = speed_matcher.match(command)
     if (matched):
