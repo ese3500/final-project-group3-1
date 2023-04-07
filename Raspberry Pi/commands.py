@@ -5,7 +5,7 @@ MAX_SPEED = 200
 VALID_MOVE = ['F', 'B', 'R', 'L', 'U', 'S']
 
 class Commander:
-    def __init__(self, baud=9600, port='/dev/ttyACM0'):
+    def __init__(self, baud=9600, port='/dev/ttyS0'):
         self.ser = serial.Serial(port=port, baudrate=baud, timeout=0.1, stopbits=serial.STOPBITS_TWO)
         self.ser.flush()
 

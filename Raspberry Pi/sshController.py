@@ -22,12 +22,12 @@ while True:
 
     if command.lower() == 'f':
         print(f"Got: F")
-        comm.move('F')
+        comm.move('B')
         continue
 
     if command.lower() == 'b':
         print(f"Got: B")
-        comm.move('B')
+        comm.move('F')
         continue
 
     if command.lower() == 'r':
@@ -36,7 +36,7 @@ while True:
         continue
 
 
-    if command.lower() == 'l':
+    if command.lower() == 'L':
         print(f"Got: L")
         comm.move('L')
         continue
@@ -82,4 +82,8 @@ while True:
     if (matched):
         print(f"Got: PERSON {matched.group(1)}")
         comm.person(matched.group(1))
-        continue    
+        continue  
+
+    else:
+        print("Command not recognized, stopping")
+        comm.move('S')  
