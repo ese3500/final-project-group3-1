@@ -21,7 +21,6 @@ MIN_TEMP = 25
 IP_ADDR = "192.168.200.134"
 DATASET_DIR = '/home/pi/nightowl/dataset'
 
-
 PAGE="""\
 <html>
 <head>
@@ -159,7 +158,6 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
         else:
             self.send_error(404)
             self.end_headers()
-
 
 class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     allow_reuse_address = True
