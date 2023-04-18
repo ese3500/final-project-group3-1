@@ -8,6 +8,7 @@ class Model:
     interpreter=None
     def __init__(self):
         global interpreter
+        interpreter = Interpreter(model_path='model.tflite')
         interpreter.allocate_tensors()
         
     def classifyImage(self, img):
