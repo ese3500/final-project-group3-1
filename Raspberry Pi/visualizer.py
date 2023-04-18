@@ -10,6 +10,8 @@ from matplotlib import cm
 import board, busio
 import numpy as np
 import adafruit_mlx90640 as ada
+from model import Model
+from commands import Commander
 
 i2c = busio.I2C(board.SCL, board.SDA, frequency = 400000)
 mlx = ada.MLX90640(i2c)
@@ -41,6 +43,10 @@ function save() {
     else alert("Saved at " + label);
     return xmlHttp.responseText;
 }
+function classify() {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("POST", "/classify", false);
+}
 </script>
 
 <body>
@@ -51,12 +57,18 @@ function save() {
         <textarea id="label_input" name="label_input" rows="2" cols="30" placeholder="Example: right" onkeydown="if(event.keyCode == 13) {save();return false;}"></textarea>
         <br><br>
         <div width="20%" height="5%"><button id="save" onClick="save()">SAVE</button></div>
+        <br><br>
+        <div width="20%" height="5%><button id = "classify" onClick="classify">CLASSIFY</button></div>
     </center>
 </body>
 </html>
 """
 
 im = None
+model = Model()
+commander = Commander()
+
+labels = ['L', 'R', 'U']
 
 def get_image(buf):
     global im
@@ -156,8 +168,23 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                 self.send_response(201)
             self.end_headers()
         else:
-            self.send_error(404)
-            self.end_headers()
+            if self.path == '/classify':
+                global im
+                global model
+                global labels
+                label = model.classifyImage(im)
+                print("Left confidence level: " + str(label[0]*100))
+                print("Right confidence level: " + str(label[0]*100))
+                print("Tpose confidence level: " + str(label[0]*100))
+                print()
+
+                confidence = np.argmax(label)
+                if (label[confidence] > 0.95):
+                    commander.move(labels[confidence])
+
+            else:
+                self.send_error(404)
+                self.end_headers()
 
 class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     allow_reuse_address = True
