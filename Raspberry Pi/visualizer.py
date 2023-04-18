@@ -167,24 +167,22 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                 logging.warning('Could not save: %s', self.client_address, str(e))
                 self.send_response(201)
             self.end_headers()
+        elif self.path == '/classify':
+            global model
+            global labels
+            label = model.classifyImage(im)
+            print("Left confidence level: " + str(label[0]*100) + "%")
+            print("Right confidence level: " + str(label[0]*100) + "%")
+            print("Tpose confidence level: " + str(label[0]*100) + "%")
+            print()
+
+            confidence = np.argmax(label)
+            if (label[confidence] > 0.95):
+                commander.move(labels[confidence])
+
         else:
-            if self.path == '/classify':
-                global im
-                global model
-                global labels
-                label = model.classifyImage(im)
-                print("Left confidence level: " + str(label[0]*100))
-                print("Right confidence level: " + str(label[0]*100))
-                print("Tpose confidence level: " + str(label[0]*100))
-                print()
-
-                confidence = np.argmax(label)
-                if (label[confidence] > 0.95):
-                    commander.move(labels[confidence])
-
-            else:
-                self.send_error(404)
-                self.end_headers()
+            self.send_error(404)
+            self.end_headers()
 
 class StreamingServer(socketserver.ThreadingMixIn, server.HTTPServer):
     allow_reuse_address = True
