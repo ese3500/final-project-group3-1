@@ -13,7 +13,9 @@ class Model:
         output_index = self.interpreter.get_output_details()[0]['index']
 
         img = img.resize((100, 100))
-        input_tensor = np.expand_dims(img, axis=0)
+        img_array = np.asarray(img)
+        input_tensor = np.expand_dims(img_array, 0)
+    
         self.interpreter.set_tensor(input_index, input_tensor)
 
         self.interpreter.invoke()
@@ -21,6 +23,5 @@ class Model:
         prediction =  self.interpreter.get_tensor(output_index)[0]
 
         return prediction
-
 
 
