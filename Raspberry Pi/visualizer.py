@@ -181,6 +181,8 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                 confidence = np.argmax(label)
                 if (label[confidence] > 0.95):
                     commander.move(labels[confidence])
+                else:
+                    commander.move('')
 
             else:
                 self.send_error(404)
