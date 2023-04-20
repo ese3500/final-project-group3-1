@@ -7,9 +7,14 @@ void initIO() {
 
 }
 
-int getDist() {
-    return 50;
+int getDistClose() {
+    return getDistance1();
 }
+
+int getDistFar() {
+    return getDistance2();
+}
+
 
 void buzzer(int duration) {
 

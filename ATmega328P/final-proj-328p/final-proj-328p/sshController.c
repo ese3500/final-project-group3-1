@@ -58,6 +58,7 @@ void command_responder(char *command) {
 int main() {
     SerialInit(BAUD_PRESCALER);
     ROVER_initialize();
+    DISTANCE_init();
 
     while (1) {
         SerialReadLine(buf);
