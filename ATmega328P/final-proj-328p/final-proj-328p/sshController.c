@@ -49,15 +49,19 @@ void command_responder(char *command) {
             ROVER_stop();
             }
         else if (command[5] == 'S') ROVER_stop();
-    } else if (!strncmp(command, "DIST", 4)) {
-        sprintf(buf, "%d\n", getDist());
+    } else if (!strncmp(command, "DISTC", 4)) {
+        sprintf(buf, "%d\n", getDistClose());
 		SerialPrint(buf);
+    } else if (!strncmp(command, "DISTF", 4)) {
+        sprintf(buf, "%d\n", getDistFar());
+        SerialPrint(buf);
     }
 }
 
 int main() {
     SerialInit(BAUD_PRESCALER);
     ROVER_initialize();
+    DISTANCE_init();
 
     while (1) {
         SerialReadLine(buf);
