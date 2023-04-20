@@ -33,8 +33,16 @@ void command_responder(char *command) {
     } else if (!strncmp(command, "MOVE", 4)) {
         if (command[5] == 'F') ROVER_moveForward(DEFAULT_SPEED);
         else if (command[5] == 'B') ROVER_moveBackward(DEFAULT_SPEED);
-        else if (command[5] == 'R') ROVER_turnRight(DEFAULT_SPEED);
-        else if (command[5] == 'L') ROVER_turnLeft(DEFAULT_SPEED);
+        else if (command[5] == 'R') {
+			ROVER_turnRight(DEFAULT_SPEED);
+			_delay_ms(500);
+			ROVER_stop();
+		}
+        else if (command[5] == 'L') {
+			ROVER_turnLeft(DEFAULT_SPEED);
+			_delay_ms(500);
+			ROVER_stop();
+		}
         else if (command[5] == 'U') {
             ROVER_turnAround(DEFAULT_SPEED);
             _delay_ms(500);
