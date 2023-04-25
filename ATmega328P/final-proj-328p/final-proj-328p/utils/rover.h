@@ -38,6 +38,10 @@ void ROVER_setSpeed(int speed1, int speed2);
 void ROVER_increaseSpeed(int acc);
 void ROVER_decreaseSpeed(int dec);
 
+void ROVER_moveForward2(int speed_left, int speed_right);
+void ROVER_moveBackward2(int speed_left, int speed_right);
+void ROVER_turnAround2(int speed_left, int speed_right);
+
 void ROVER_stop();
 
 void ROVER_setMode(int mode);

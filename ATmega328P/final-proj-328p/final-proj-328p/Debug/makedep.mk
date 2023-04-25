@@ -10,6 +10,8 @@ tests\roverTests.c
 
 tests\serialTests.c
 
+utils\distance.c
+
 utils\motor.c
 
 utils\others.c

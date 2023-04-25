@@ -19,7 +19,8 @@ sshController.d sshController.o: .././sshController.c \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\version.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\fuse.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\lock.h \
- .././utils/serial.h .././utils/others.h
+ .././utils/serial.h .././utils/others.h .././utils/distance.h \
+ .././utils/distance.h
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h:
 
@@ -66,3 +67,7 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 .././utils/serial.h:
 
 .././utils/others.h:
+
+.././utils/distance.h:
+
+.././utils/distance.h:

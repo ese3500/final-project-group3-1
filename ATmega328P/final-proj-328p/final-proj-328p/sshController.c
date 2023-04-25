@@ -14,11 +14,16 @@
 #include "utils/rover.h"
 #include "utils/serial.h"
 #include "utils/others.h"
+#include "utils/distance.h"
 
 #define DEFAULT_SPEED 180
 
-char buf[100];
+static int speed_left = DEFAULT_SPEED;
+static int speed_right = DEFAULT_SPEED;
 
+static char buf[100];
+static char ack[4] = {'A', 'C', 'K', '\0'};
+ 
 int get_arg(char *cmd, int start_index, int size) {
     char buf2[40];
     strcpy(buf2, cmd);
@@ -28,33 +33,53 @@ int get_arg(char *cmd, int start_index, int size) {
 
 void command_responder(char *command) {
     if (!strncmp(command, "SPEED", 5)) {
-        ROVER_setSpeed(get_arg(command, 6, 3), get_arg(command, 10, 3));
-        _delay_ms(get_arg(command, 14, 7));
+        // ROVER_setSpeed(get_arg(command, 6, 3), get_arg(command, 10, 3));
+        // _delay_ms(get_arg(command, 14, 7));
+        speed_left = get_arg(command, 6, 3);
+        speed_right = get_arg(command, 10, 3);
+        SerialPrint(ack);
     } else if (!strncmp(command, "MOVE", 4)) {
-        if (command[5] == 'F') ROVER_moveForward(DEFAULT_SPEED);
-        else if (command[5] == 'B') ROVER_moveBackward(DEFAULT_SPEED);
-        else if (command[5] == 'R') {
-			ROVER_turnRight(DEFAULT_SPEED);
-			_delay_ms(500);
-			ROVER_stop();
+        if (command[5] == 'F') {
+            ROVER_moveForward2(speed_left, speed_right);
+        } else if (command[5] == 'B') {
+            ROVER_moveBackward2(speed_left, speed_right);
+        } else if (command[5] == 'R') {
+			ROVER_turnRight(speed_right);
 		}
         else if (command[5] == 'L') {
-			ROVER_turnLeft(DEFAULT_SPEED);
-			_delay_ms(500);
-			ROVER_stop();
+			ROVER_turnLeft(speed_left);
 		}
         else if (command[5] == 'U') {
-            ROVER_turnAround(DEFAULT_SPEED);
-            _delay_ms(500);
+            ROVER_turnAround2(speed_left, speed_right);
+        }
+        else if (command[5] == 'S') {
             ROVER_stop();
-            }
-        else if (command[5] == 'S') ROVER_stop();
-    } else if (!strncmp(command, "DISTC", 4)) {
+        }
+        SerialPrint(ack);
+    } else if (!strncmp(command, "DISTC", 5)) {
         sprintf(buf, "%d\n", getDistClose());
 		SerialPrint(buf);
-    } else if (!strncmp(command, "DISTF", 4)) {
+    } else if (!strncmp(command, "DISTF", 5)) {
         sprintf(buf, "%d\n", getDistFar());
         SerialPrint(buf);
+    } else if (!strncmp(command, "DISTF", 5)) {
+        sprintf(buf, "%d\n", getDistFar());
+        SerialPrint(buf);
+    } else if (!strncmp(command, "TEST", 4)) {
+        SerialPrint("TEST");
+    }
+}
+
+void align(int dist) {
+    return;
+}
+
+int checkCollision() {
+    if (getDistClose() < 20) {
+        ROVER_stop();
+        SerialPrint("COLLISION");
+        align(30);
+        
     }
 }
 
@@ -64,6 +89,9 @@ int main() {
     DISTANCE_init();
 
     while (1) {
+        if (checkCollision()) {
+            SerialPrint("DONE");
+        }
         SerialReadLine(buf);
         command_responder(buf);
     }

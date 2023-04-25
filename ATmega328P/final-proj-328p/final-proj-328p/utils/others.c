@@ -8,11 +8,11 @@ void initIO() {
 }
 
 int getDistClose() {
-    return getDistance1();
+    return getDistance2();
 }
 
 int getDistFar() {
-    return getDistance2();
+    return getDistance1();
 }
 
 

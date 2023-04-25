@@ -138,6 +138,12 @@
     <Compile Include="tests\serialTests.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="utils\distance.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="utils\distance.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="utils\motor.c">
       <SubType>compile</SubType>
     </Compile>

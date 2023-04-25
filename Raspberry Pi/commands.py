@@ -15,7 +15,7 @@ class Commander:
         dur = int(dur)
     
         self.ser.write(f"SPEED {leftSpeed} {rightSpeed} {dur}\n".encode('ascii'))
-        return 0
+        return self.ser.readline().decode('utf-8')
     
     def move(self, dir):
         if dir not in VALID_MOVE:
@@ -23,9 +23,21 @@ class Commander:
             return -1
         
         self.ser.write(f"MOVE {dir}\n".encode('ascii'))
-        return 0
+        return self.ser.readline().decode('utf-8')
     
-    def getDist(self):        
+    def getDistC(self):        
+        self.ser.write(f"DISTC\n".encode('ascii'))
+        line = self.ser.readline().decode('utf-8')
+        
+        try:
+            dist = int(line)
+        except: 
+            print("Failed to cast dist to int")
+            print(f"Got line: {line}")
+            return -1
+        return dist
+    
+    def getDistF(self):        
         self.ser.write(f"DIST\n".encode('ascii'))
         line = self.ser.readline().decode('utf-8')
         
@@ -39,7 +51,7 @@ class Commander:
     
     def noPerson(self):        
         self.ser.write(f"NOPERSON\n".encode('ascii'))
-        return 0
+        return self.ser.readline().decode('utf-8')
     
     def person(self, angle):
         try:
@@ -51,7 +63,7 @@ class Commander:
 
         
         self.ser.write(f"PERSON {int(angle)}\n".encode('ascii'))
-        return 0
+        return self.ser.readline().decode('utf-8')
     
     def waitUntilDone(self):
         line = self.ser.readline().decode('utf-8')

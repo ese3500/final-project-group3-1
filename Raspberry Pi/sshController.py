@@ -17,48 +17,48 @@ while True:
 
     if command.lower() == 's':
         print(f"Got: STOP")
-        comm.move('S')
+        print(comm.move('S'))
         continue
 
     if command.lower() == 'f':
         print(f"Got: F")
-        comm.move('B')
+        print(comm.move('B'))
         continue
 
     if command.lower() == 'b':
         print(f"Got: B")
-        comm.move('F')
+        print(comm.move('F'))
         continue
 
     if command.lower() == 'r':
         print(f"Got: R")
-        comm.move('R')
+        print(comm.move('R'))
         continue
 
 
     if command.lower() == 'L':
         print(f"Got: L")
-        comm.move('L')
+        print(comm.move('L'))
         continue
 
 
     if command.lower() == 'u':
         print(f"Got: U")
-        comm.move('U')
+        print(comm.move('U'))
         continue
 
     # SPEED
     matched = speed_matcher.match(command)
     if (matched):
         print(f"Got: SPEED {matched.group(1)} {matched.group(2)} {matched.group(3)}")
-        comm.setSpeed(matched.group(1), matched.group(2), matched.group(3))
+        print(comm.setSpeed(matched.group(1), matched.group(2), matched.group(3)))
         continue
 
     # MOVE
     matched = move_matcher.match(command)
     if (matched):
         print(f"Got: MOVE {matched.group(1)}")
-        comm.move(matched.group(1))
+        print(comm.move(matched.group(1)))
         continue
 
     # DIST
