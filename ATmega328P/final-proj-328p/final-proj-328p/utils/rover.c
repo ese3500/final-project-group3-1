@@ -60,16 +60,16 @@ void ROVER_decreaseSpeed(int dec) {
     RIGHT_decreaseSpeed(dec);
 }
 
-void ROVER_moveForward2(int speed_left, int speed_right) {
-    LEFT_backward(speed_left);
-    RIGHT_backward(speed_right);
-    ROVER_setMode(FORWARD_MODE);
-}
-
 void ROVER_moveBackward2(int speed_left, int speed_right) {
     LEFT_backward(speed_left);
     RIGHT_backward(speed_right);
     ROVER_setMode(BACKWARD_MODE);
+}
+
+void ROVER_moveForward2(int speed_left, int speed_right) {
+    LEFT_forward(speed_left);
+    RIGHT_forward(speed_right);
+    ROVER_setMode(FORWARD_MODE);
 }
 
 void ROVER_turnAround2(int speed_left, int speed_right) {

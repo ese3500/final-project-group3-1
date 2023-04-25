@@ -43,27 +43,27 @@ void LEFT_forward(int speed) {
     BRAKE &= ~(1<<LEFT_BRAKE);
 
     LEFT_setSpeed(speed);
-    DIR &= ~(1<<LEFT_DIR);
+    DIR |= (1<<LEFT_DIR);
 }
 void RIGHT_forward(int speed) {
     BRAKE &= ~(1<<RIGHT_BRAKE);
 
     RIGHT_setSpeed(speed);
-    DIR |= (1<<RIGHT_DIR);
+    DIR &= ~(1<<RIGHT_DIR);
 }
 
 void LEFT_backward(int speed) {
     BRAKE &= ~(1<<LEFT_BRAKE);
 
     LEFT_setSpeed(speed);
-    DIR |= (1<<LEFT_DIR);
+    DIR &= ~(1<<LEFT_DIR);
 }
 
 void RIGHT_backward(int speed) {
     BRAKE &= ~(1<<RIGHT_BRAKE);
 
     RIGHT_setSpeed(speed);
-    DIR &= ~(1<<RIGHT_DIR);
+    DIR |= (1<<RIGHT_DIR);
 }
 
 void LEFT_setSpeed(int speed) {

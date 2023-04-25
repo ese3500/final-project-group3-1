@@ -75,11 +75,10 @@ void align(int dist) {
 }
 
 int checkCollision() {
-    if (getDistClose() < 20) {
+    if (getDistClose() < 45 && MODE == FORWARD_MODE) {
         ROVER_stop();
-        SerialPrint("COLLISION");
-        align(30);
-        
+        SerialPrint("COLLISION STOPPED");
+        //align(30);        
     }
 }
 
@@ -89,8 +88,8 @@ int main() {
     DISTANCE_init();
 
     while (1) {
-        if (checkCollision()) {
-            SerialPrint("DONE");
+        while(!(UCSR0A & (1<<RXC0))) {
+            checkCollision();
         }
         SerialReadLine(buf);
         command_responder(buf);
