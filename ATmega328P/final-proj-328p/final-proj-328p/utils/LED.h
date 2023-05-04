@@ -13,4 +13,11 @@ void LED_REDon();
 
 void LED_REDoff();
 
+void LED_BLUEon();
+
+void LED_BLUEoff();
+
+void LED_GREENon();
+
+void LED_GREENoff();
 #endif //LED_H

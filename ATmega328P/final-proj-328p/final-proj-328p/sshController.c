@@ -68,6 +68,24 @@ void command_responder(char *command) {
         SerialPrint(buf);
     } else if (!strncmp(command, "TEST", 4)) {
         SerialPrint("TEST");
+    } else if (!strncmp(command, "RON", 3)) {
+        LED_REDon();
+        SerialPrint(buf);
+    } else if (!strncmp(command, "ROFF", 4)) {
+        LED_REDoff();
+        SerialPrint(buf);
+    } else if (!strncmp(command, "BON", 3)) {
+        LED_BLUEon();
+        SerialPrint(buf);
+    } else if (!strncmp(command, "BOFF", 4)) {
+        LED_BLUEoff();
+        SerialPrint(buf);
+    } else if (!strncmp(command, "GON", 3)) {
+        LED_GREENon();
+        SerialPrint(buf);
+    } else if (!strncmp(command, "GOFF", 4)) {
+        LED_GREENoff();
+        SerialPrint(buf);
     }
 }
 
