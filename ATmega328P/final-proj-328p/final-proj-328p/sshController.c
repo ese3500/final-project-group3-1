@@ -15,6 +15,7 @@
 #include "utils/serial.h"
 #include "utils/others.h"
 #include "utils/distance.h"
+#include "utils/LED.h"
 
 #define DEFAULT_SPEED 180
 
@@ -75,10 +76,11 @@ void align(int dist) {
 }
 
 int checkCollision() {
-    if (getDistClose() < 45 && MODE == FORWARD_MODE) {
+    if (getDistClose() < 25 && MODE == FORWARD_MODE) {
+        ROVER_moveBackward(180);
+        _delay_ms(500);
         ROVER_stop();
         SerialPrint("COLLISION STOPPED");
-        //align(30);        
     }
 }
 
@@ -86,10 +88,12 @@ int main() {
     SerialInit(BAUD_PRESCALER);
     ROVER_initialize();
     DISTANCE_init();
+    LED_initialize();
 
     while (1) {
         while(!(UCSR0A & (1<<RXC0))) {
             checkCollision();
+            SerialPrint("Checking collision !!");
         }
         SerialReadLine(buf);
         command_responder(buf);

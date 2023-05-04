@@ -2,7 +2,15 @@
 // Created by Leon Kabue on 5/4/23.
 //
 
-#ifndef FINAL_LED_H
-#define FINAL_LED_H
+#ifndef LED_H
+#define LED_H
 
-#endif //FINAL_LED_H
+#include <avr/io.h>
+
+void LED_initialize();
+
+void LED_REDon();
+
+void LED_REDoff();
+
+#endif //LED_H
