@@ -50,6 +50,7 @@ void RIGHT_forward(int speed) {
 
     RIGHT_setSpeed(speed);
     DIR &= ~(1<<RIGHT_DIR);
+
 }
 
 void LEFT_backward(int speed) {
@@ -64,6 +65,7 @@ void RIGHT_backward(int speed) {
 
     RIGHT_setSpeed(speed);
     DIR |= (1<<RIGHT_DIR);
+
 }
 
 void LEFT_setSpeed(int speed) {

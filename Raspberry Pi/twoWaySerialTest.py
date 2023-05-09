@@ -1,7 +1,7 @@
 import serial
 import time
 
-ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1, stopbits=serial.STOPBITS_TWO)
+ser = serial.Serial('/dev/ttyACM0', 9600, timeout=0, stopbits=serial.STOPBITS_TWO)
 ser.flush()
 
 print("Initializing Pi...")
@@ -21,4 +21,5 @@ while True:
     except: 
         print("Failed to cast response to int")
 
-    time.sleep(1)
+#    time.sleep(0.01)
+

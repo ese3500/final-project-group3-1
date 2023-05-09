@@ -65,8 +65,6 @@ void testRover() {
         _delay_ms(20);
     }
 
-
-
     //move forward for 5 seconds with constant speed
     ROVER_start(100);
     _delay_ms(5000);
