@@ -1,6 +1,12 @@
 #include "roverTests.h"
 #include "../utils/rover.h"
 
+#define F_CPU 16000000UL
+#define BAUD_RATE 9600
+#define BAUD_PRESCALER (((F_CPU / (BAUD_RATE * 16UL))) - 1)
+
+#include <util/delay.h>
+
 void testRover() {
 
     //move forward for 5 seconds with constant speed
@@ -58,8 +64,6 @@ void testRover() {
         ROVER_setSpeed(sp, sp);
         _delay_ms(20);
     }
-
-}
 
     //move forward for 5 seconds with constant speed
     ROVER_start(100);

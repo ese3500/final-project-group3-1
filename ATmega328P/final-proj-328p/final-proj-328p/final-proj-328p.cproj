@@ -123,6 +123,9 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="sshController.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="tests\roverTests.c">
       <SubType>compile</SubType>
     </Compile>
@@ -135,10 +138,22 @@
     <Compile Include="tests\serialTests.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="utils\distance.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="utils\distance.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="utils\motor.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="utils\motor.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="utils\others.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="utils\others.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="utils\rover.c">
