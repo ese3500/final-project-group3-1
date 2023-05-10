@@ -2,7 +2,7 @@
 ## Leon Kabue and Rafael Sakamoto
 
 [Devpost Link](https://devpost.com/software/532295) <br>
-[Demo video](https://youtu.be/BgxkRdhByj0)
+[Demo video](https://www.youtube.com/watch?v=BxhTglRsYq0)
 
 ## Overview
 The recent natural disasters in Turkey and Syria shocked all of us in the past weeks. As engineers, that got us thinking about how we could potentially help in such scenarios. 
